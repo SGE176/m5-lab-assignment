@@ -1,0 +1,26 @@
+nav {
+    background-color: rgb(113, 197, 249);
+    height: 7rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 4rem;
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    margin-left: 10px;
+    margin-right: 2px;
+}
+
+.cart {
+    color: white;
+    text-decoration: none;
+    margin-top: 1rem;
+    font-size: 20px;
+
+}
