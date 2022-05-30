@@ -1,19 +1,20 @@
-import React from 'react';
-import {Link,BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+import { Link, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
   faShoppingCart,
   faRegistered,
 } from "@fortawesome/free-solid-svg-icons";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DisplayProducts from "./displayProducts";
-import './navbar.css'
+import "./index.css";
+import ShowCart from "./showCart"
+import LogIn from "./login"
 
-export default function Navbar(props) {
+function Navbar(props) {
   return (
     <Router>
-      <nav>
-        <Link className="logo" to="/">
+      <nav className="navbar p-5 bg-info">
+        <Link to="/">
           <h1>
             Shop 2
             <span>
@@ -22,42 +23,45 @@ export default function Navbar(props) {
             eact
           </h1>
         </Link>
-        <Link to="/showCart" className="cart">
-          <FontAwesomeIcon icon={faShoppingCart} size="sm" />
-          <span> {props.totalQuantity} </span>
+        <Link to="/showCart">
+          <FontAwesomeIcon icon={faShoppingCart} className="fas fa-lg" />
+          <span> {props.totalValue} items</span>
         </Link>
       </nav>
 
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <DisplayProducts
-              products={props.prods}
-              onIncrement={props.handleIncrement}
+       <Routes>
+                <Route 
+                    exact path="/" 
+                    element={
+                        <DisplayProducts 
+                            products={props.prods}
+onIncrement={props.handleIncrement}
               onDecrement={props.handleDecrement}
-            />
-          }
-        />
-      </Routes>
-    </Router>
-  );
-}
+                            OnSort={props.handleSort}
+                            sortType={props.sortType}
+                            listNum={props.listNum}
+                        />}
+                >
 
-
-// var Navbar = React.createClass({
-//   render: function() {
-//     return (
-//     <div>
-//       <div className="title bg-info px-5 py-5">
-//           <h1>Shop to React</h1>
-//           {this.renderCart(this.state)}
-//       </div>
-//       <div className="shopcart">
-//             <FontAwesomeIcon icon={faShoppingCart} size="sm" />
-//             <span>  {totalAmount} items</span>
-//       </div>
-//     </div>
-//     );
-//   }
-// });
+                </Route>
+                <Route 
+                    path="/showcart" 
+                    element={
+                        <ShowCart 
+                            cartitems={props.prods}
+                            totalQuantity={props.totalValue}
+                        />}
+                >
+                </Route>
+                <Route 
+                    path="/login" 
+                    element={
+                        <LogIn checkoutitems={props.prods}/>}
+                >
+                </Route>
+            </Routes>
+        </Router>
+    )
+};
+ 
+export default Navbar;

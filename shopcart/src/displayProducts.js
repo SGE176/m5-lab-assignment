@@ -4,8 +4,10 @@ import { Button, ListGroup, ListGroupItem } from "reactstrap";
 import { Modal } from "react-bootstrap";
 import { faPlusCircle, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import products from "./productdata";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./displayProducts.css";
+import "./index.css";
 
 export default function DisplayProducts(props) {
   const [show, setShow] = useState(false);
@@ -20,40 +22,50 @@ export default function DisplayProducts(props) {
 
   return (
     <div>
+      <div className="container col-lg-10 my-5 mx-auto">
+        <label>
+          Sort Price By:
+          <select
+            onChange={(e) => props.OnSort(props.products, e.target.value)}
+          >
+            <option value="norm">Normal</option>
+            <option value="asc">Lowest</option>
+            <option value="desc">Highest</option>
+          </select>
+        </label>
+      </div>
       {props.products.map((product) => {
         return (
-          <ListGroup className="products">
-            <ListGroupItem key={product.id} className="product">
-              <div className="displayP">
-                <h3>{product.desc}</h3>
-                <img
-                  onClick={() => handleShow(product)}
-                  src={product.image}
-                  width="150"
-                  alt={product.desc}
-                />
-              </div>
-              <div className="displayBtn">
-                <Button
-                  className="btn btn-secondary mx-2"
-                  onClick={() => props.onIncrement(product)}
-                >
-                  <FontAwesomeIcon icon={faPlusCircle} className="fas fa-lg" />
-                </Button>
-                <Button
-                  className="btn btn-secondary mx-2"
-                  onClick={() => props.onDecrement(product)}
-                >
-                  <FontAwesomeIcon icon={faMinusCircle} className="fas fa-lg" />
-                </Button>
-              </div>
-              <div className="displayQty">
-                <p>Quantity</p>
-                <span type="number" name="number" placeholder="0">
-                  {" "}
-                  {product.qty}{" "}
-                </span>
-              </div>
+          <ListGroup key={product.id} className="products">
+            <ListGroupItem className="border border-1 p-3">
+              <div>
+              <h4 className="d-inline mx-5">{product.desc}</h4>
+              <h4 className="d-inline col-lg-3 text-danger">
+                ${product.price}
+              </h4></div>
+              <img
+                onClick={() => handleShow(product)}
+                src={product.image}
+                width="150"
+                alt={product.desc}
+              />
+              <Button
+                className="btn btn-secondary mx-2"
+                onClick={() => props.onIncrement(product)}
+              >
+                <FontAwesomeIcon icon={faPlusCircle} className="fas fa-lg" />
+              </Button>
+              <Button
+                className="btn btn-secondary mx-2"
+                onClick={() => props.onDecrement(product)}
+              >
+                <FontAwesomeIcon icon={faMinusCircle} className="fas fa-lg" />
+              </Button>
+              <p>Quantity</p>
+              <span type="number" name="number" placeholder="0">
+                {" "}
+                {product.value}{" "}
+              </span>
             </ListGroupItem>
           </ListGroup>
         );
